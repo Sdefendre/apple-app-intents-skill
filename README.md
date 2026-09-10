@@ -6,6 +6,8 @@ A free, open-source [Agent Skill](https://agentskills.io/specification) for Clau
 
 **MIT licensed.** Free to use, modify, redistribute, and use in commercial projects. No subscription, API key, hosted service, telemetry, or paid dependency is required to use the skill. Your chosen agent and Apple's development/distribution services have their own requirements.
 
+**[Visit the website and download the skill](https://sdefendre.github.io/apple-app-intents-skill/)**
+
 ## Install
 
 Requires Git and Python 3.10+ for the optional installer:
