@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f4ee">
-  <title>Apple App Intents Skill — Build for Siri</title>
-  <meta name="description" content="A free, MIT-licensed skill that teaches coding agents practical Siri and Shortcuts integration. Download for Codex, Claude Code, and OpenClaw. Swift example included.">
+  <meta name="theme-color" content="#f5f7fc">
+  <title>Apple App Intents Skill — Take your app further</title>
+  <meta name="description" content="A free, MIT-licensed agent skill for Apple App Intents, Siri, and Shortcuts. Practical schema guidance, a SwiftUI example, and installation for Codex, Claude Code, and OpenClaw.">
   <link rel="canonical" href="https://sdefendre.github.io/apple-app-intents-skill/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Apple App Intents Skill — Build for Siri">
-  <meta property="og:description" content="Practical Siri integration guidance for your coding agent. Free, open source, and ready to download.">
+  <meta property="og:title" content="Apple App Intents Skill — Take your app further">
+  <meta property="og:description" content="Your app’s actions, connected to Apple’s system experiences. An open-source skill for your coding agent.">
   <meta property="og:url" content="https://sdefendre.github.io/apple-app-intents-skill/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -18,61 +18,66 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header wrap">
-  <a class="brand" href="./" aria-label="Apple App Intents Skill home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Apple App Intents<span class="brand-sub">AN OPEN-SOURCE AGENT SKILL</span></span></a>
-  <nav aria-label="Main navigation"><a href="#inside">What’s inside</a><a href="#install">Install</a><a class="source-link" href="https://github.com/Sdefendre/apple-app-intents-skill">GitHub <span aria-hidden="true">↗</span></a></nav>
+  <a class="brand" href="./" aria-label="Apple App Intents Skill home">
+    <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M11 11h18v18H11zM11 11l18 18M29 11L11 29" stroke="currentColor" stroke-width="2"/><rect x="7" y="7" width="8" height="8" rx="2" fill="currentColor"/><rect x="25" y="7" width="8" height="8" rx="2" fill="currentColor"/><rect x="7" y="25" width="8" height="8" rx="2" fill="currentColor"/><rect x="25" y="25" width="8" height="8" rx="2" fill="currentColor"/></svg>
+    <span>Apple App Intents<span class="brand-sub">THE AGENT SKILL</span></span>
+  </a>
+  <nav aria-label="Main navigation"><a href="#inside">The playbook</a><a href="#example">Swift example</a><a class="nav-install" href="#install">Get the skill <span aria-hidden="true">↗</span></a></nav>
 </header>
 <main id="main">
   <section class="hero wrap" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="dot"></span> FREE TO USE. YOURS TO BUILD WITH.</p>
-      <h1 id="hero-title">Build for Siri.<br>Start with<br><em>a skill.</em></h1>
-      <p class="hero-description">Give your coding agent a practical guide to App Intents, Siri, and Shortcuts. Turn supported app actions into useful system integrations.</p>
-      <div class="hero-actions"><a class="button" href="https://github.com/Sdefendre/apple-app-intents-skill/releases/download/v0.1.0/apple-app-intents-v0.1.0.zip">Download the skill <span aria-hidden="true">↓</span></a><a class="text-link" href="#install">How to install <span aria-hidden="true">↗</span></a></div>
-      <p class="download-note">v0.1.0 · ZIP, 36 KB · MIT license</p>
-      <p class="agents"><span>MADE FOR</span> Codex <b aria-hidden="true">/</b> Claude Code <b aria-hidden="true">/</b> OpenClaw</p>
+      <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> OPEN SOURCE. OPEN POSSIBILITIES.</p>
+      <h1 id="hero-title">Your app.<br>Beyond<br><span>the app.</span></h1>
+      <p class="hero-description">Help your coding agent connect your app’s actions to Siri, Shortcuts, and Spotlight. A practical playbook for Apple App Intents.</p>
+      <div class="hero-actions"><a class="button" href="https://github.com/Sdefendre/apple-app-intents-skill/releases/download/v0.1.0/apple-app-intents-v0.1.0.zip">Download the skill <span aria-hidden="true">↓</span></a><a class="text-link" href="https://github.com/Sdefendre/apple-app-intents-skill">View on GitHub <span aria-hidden="true">↗</span></a></div>
+      <p class="download-note">v0.1.0 <span aria-hidden="true">·</span> 36 KB ZIP <span aria-hidden="true">·</span> Free, MIT licensed</p>
     </div>
-    <div class="hero-art" aria-label="The skill includes a Markdown entrypoint, focused references, and the FieldNotes Swift example">
-      <div class="art-heading"><span>A LITTLE GUIDANCE.<br>A LOT TO BUILD ON.</span><span class="edition">01 / SKILL</span></div>
-      <div class="skill-sheet">
-        <div class="sheet-top"><span class="file-icon" aria-hidden="true">↳</span><span>apple-app-intents</span><span class="sheet-badge">MIT</span></div>
-        <p class="sheet-kicker">THE ENTRYPOINT</p><p class="sheet-title">SKILL.md</p>
-        <p class="sheet-description">From app capability<br>to the right intent.</p>
-        <div class="sheet-rule"></div>
-        <div class="file-line"><span>01</span> Schema selection <span aria-hidden="true">↗</span></div>
-        <div class="file-line"><span>02</span> Entities &amp; indexing <span aria-hidden="true">↗</span></div>
-        <div class="file-line"><span>03</span> Testing &amp; verification <span aria-hidden="true">↗</span></div>
-        <p class="sheet-footer">8 focused guides. One portable skill.</p>
+    <div class="capability-map" role="img" aria-label="An illustrative capability map: your app’s content and actions connect through App Entities and App Intents to Siri, Shortcuts, and Spotlight, where supported. The skill guides schema selection, queries, indexing, and verification.">
+      <div class="map-header"><span>FROM APP TO EXPERIENCE</span><span class="map-label">CAPABILITY MAP / 01</span></div>
+      <div class="map-canvas" aria-hidden="true">
+        <div class="app-node"><span class="app-glyph"><svg viewBox="0 0 32 32" fill="none"><rect x="7" y="4" width="18" height="24" rx="3" stroke="currentColor" stroke-width="2"/><path d="M12 11h8M12 16h8M12 21h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><div><span class="node-caption">START WITH WHAT YOU BUILD</span><strong>Your app</strong><span class="node-detail">Content + actions</span></div><span class="node-plus">+</span></div>
+        <div class="intent-node"><span class="intent-symbol">↗</span><div><span class="node-caption">MAKE THE CONNECTION</span><strong>App Intents</strong><span class="node-detail">Entities. Schemas. Queries.</span></div><span class="node-code">{ }</span></div>
+        <div class="system-nodes">
+          <div class="system-node"><span class="system-symbol siri-symbol"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3l3.3 9.7L29 16l-9.7 3.3L16 29l-3.3-9.7L3 16l9.7-3.3L16 3z" fill="currentColor"/></svg></span><strong>Siri</strong><span>Ask naturally</span></div>
+          <div class="system-node"><span class="system-symbol shortcuts-symbol"><svg viewBox="0 0 32 32" fill="none"><path d="M16 4L29 11 16 18 3 11 16 4zM3 17l13 7 13-7M3 23l13 7 13-7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><strong>Shortcuts</strong><span>Compose actions</span></div>
+          <div class="system-node"><span class="system-symbol spotlight-symbol"><svg viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="9" stroke="currentColor" stroke-width="2.5"/><path d="M21 21l7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span><strong>Spotlight</strong><span>Find your content</span></div>
+        </div>
       </div>
-      <div class="example-sheet"><span class="sample-label">SWIFT EXAMPLE INCLUDED</span><div class="example-name">FieldNotes<span aria-hidden="true">↗</span></div><p>Save a note. Find it. Open it.</p><div class="example-tags"><span>SwiftUI</span><span>App Intents</span></div></div>
-      <div class="art-footer"><span>READ IT. ADAPT IT. SHIP YOUR APP.</span><span aria-hidden="true">✳</span></div>
+      <div class="map-footer"><span class="map-key"><i></i> ONE SKILL. THE CONNECTING CONTEXT.</span><span>Built for your agent <span aria-hidden="true">↗</span></span></div>
+      <p class="map-scope">Illustrative flow. System availability depends on supported contracts, SDKs, and devices.</p>
     </div>
   </section>
-  <div class="license-strip"><div class="wrap"><p>Good tools should be open.</p><span>Free for personal and commercial use. Modify it. Share it. Keep the MIT notice.</span><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/LICENSE">Read the license <span aria-hidden="true">↗</span></a></div></div>
-  <section id="inside" class="section wrap" aria-labelledby="inside-title">
-    <div class="section-intro"><p class="eyebrow">LESS GUESSWORK. BETTER INTEGRATIONS.</p><h2 id="inside-title">The missing context<br>for your coding agent.</h2><p>Apple’s APIs are only part of the work. This skill helps your agent choose the right contract, connect it to real app data, and check what actually works.</p></div>
-    <div class="feature-list">
-      <article><span class="number">01</span><div><h3>Choose the right intent</h3><p>Map your app’s capabilities to supported Siri/App Schemas or custom intents. Keep existing Shortcuts useful as your app evolves.</p></div></article>
-      <article><span class="number">02</span><div><h3>Connect real data</h3><p>Build persistent entities, useful queries, and composable results. Handle indexing, authentication, navigation, and background execution.</p></div></article>
-      <article><span class="number">03</span><div><h3>Verify each layer</h3><p>Separate service tests, metadata extraction, system execution, and device checks. Know which results you have and what still needs testing.</p></div></article>
+  <div class="compatibility wrap"><p>A Markdown skill.<br><strong>Your choice of agent.</strong></p><div class="agent-names"><span>Codex</span><span>Claude Code</span><span>OpenClaw</span></div><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/docs/INSTALLATION.md">Other agents &amp; project installs <span aria-hidden="true">↗</span></a></div>
+  <section id="inside" class="playbook wrap section" aria-labelledby="inside-title">
+    <div class="section-heading"><p class="eyebrow">01 / THE PLAYBOOK</p><h2 id="inside-title">The right context.<br>At every connection.</h2><p>From choosing an intent to checking it on a device, give your agent a route through the work.</p></div>
+    <div class="playbook-content">
+      <article class="guide-row"><span class="guide-number">01</span><div><h3>Map the capability</h3><p>Choose a supported App Schema or a custom intent that fits your app. Preserve existing Shortcuts as your integration evolves.</p><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/skills/apple-app-intents/references/platform-and-schemas.md">Platform &amp; schemas <span aria-hidden="true">↗</span></a></div></article>
+      <article class="guide-row"><span class="guide-number">02</span><div><h3>Connect the content</h3><p>Model real data as entities. Add queries, persistence, and indexing. Handle authentication, background work, and navigation.</p><a href="https://github.com/Sdefendre/apple-app-intents-skill/tree/main/skills/apple-app-intents/references">Explore the references <span aria-hidden="true">↗</span></a></div></article>
+      <article class="guide-row"><span class="guide-number">03</span><div><h3>Check the experience</h3><p>Validate services, extracted metadata, system execution, and device behavior separately. Keep the evidence clear at each layer.</p><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/skills/apple-app-intents/references/testing-and-release.md">Testing &amp; release <span aria-hidden="true">↗</span></a></div></article>
+      <div class="reference-note"><span class="reference-symbol" aria-hidden="true">↳</span><p><strong>One entrypoint. Eight focused guides.</strong><br>Start with SKILL.md. Load the deeper references when the task needs them.</p><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/skills/apple-app-intents/SKILL.md" aria-label="Read the skill entrypoint"><span aria-hidden="true">↗</span></a></div>
     </div>
   </section>
-  <section class="sample-section wrap" aria-labelledby="sample-title">
-    <div class="sample-copy"><p class="eyebrow">A SMALL APP YOU CAN LEARN FROM</p><h2 id="sample-title">Meet FieldNotes.</h2><p>The bundled SwiftUI example puts the guidance into code: persistent notes, entity queries, search indexing, and App Shortcuts. Follow the implementation, then adapt it to your own app.</p><a class="text-link" href="https://github.com/Sdefendre/apple-app-intents-skill/tree/main/skills/apple-app-intents/assets/FieldNotes">Explore the Swift example <span aria-hidden="true">↗</span></a></div>
-    <div class="sample-facts"><p><span>BUILT WITH</span>SwiftUI + App Intents</p><p><span>TARGET</span>iOS 27 / Xcode 27</p><p><span>INCLUDED</span>Local persistence &amp; test workflows</p><p><span>SCOPE</span>Plain-text notes, one account, one Inbox</p></div>
-  </section>
-  <section id="install" class="section install-section wrap" aria-labelledby="install-title">
-    <div class="install-heading"><p class="eyebrow">A FOLDER. THAT’S THE INSTALL.</p><h2 id="install-title">Download. Unzip.<br>Give your agent the skill.</h2><p>No subscription or API key is required by the skill. Your agent and Apple’s development tools have their own requirements.</p></div>
+  <section id="example" class="example-section" aria-labelledby="example-title"><div class="wrap example-layout">
+    <div class="example-visual" role="img" aria-label="Illustration of the FieldNotes sample: a persisted Inbox note called Weekend ideas, with Create, Find, and Open actions. This is an illustration, not a running app.">
+      <div class="notebook" aria-hidden="true"><div class="notebook-toolbar"><span class="notebook-icon">▤</span><strong>FieldNotes</strong><span>SWIFTUI EXAMPLE</span></div><div class="notebook-body"><span class="notebook-inbox">INBOX / 01</span><h3>Weekend ideas</h3><p>Take the long way home.<br>Find a new trail.<br>Bring a notebook.</p><div class="notebook-caption"><span class="status-dot"></span> Persisted locally</div></div><div class="notebook-actions"><span><b>+</b> Create</span><span><b>⌕</b> Find</span><span><b>↗</b> Open</span></div></div>
+      <span class="example-caption">A SMALL APP. REAL IMPLEMENTATION DETAILS.</span>
+    </div>
+    <div class="example-copy"><p class="eyebrow">02 / LEARN FROM THE CODE</p><h2 id="example-title">Meet<br>FieldNotes.</h2><p>Follow a note from local storage to an entity query to an App Shortcut. The bundled SwiftUI example gives the guidance something concrete to work with.</p><dl class="sample-facts"><div><dt>Built with</dt><dd>SwiftUI + App Intents</dd></div><div><dt>Targets</dt><dd>iOS 27 / Xcode 27</dd></div><div><dt>Scope</dt><dd>Plain-text notes, one account, one Inbox</dd></div></dl><a class="text-link" href="https://github.com/Sdefendre/apple-app-intents-skill/tree/main/skills/apple-app-intents/assets/FieldNotes">Explore the Swift example <span aria-hidden="true">↗</span></a></div>
+  </div></section>
+  <section id="install" class="install-section wrap section" aria-labelledby="install-title">
+    <div class="section-heading"><p class="eyebrow">03 / MAKE IT YOURS</p><h2 id="install-title">A folder.<br>A new capability.</h2><p>No subscription or API key is required by the skill. Your agent and Apple’s development tools have their own requirements.</p><div class="license-note"><span class="license-mark" aria-hidden="true">↗</span><div><strong>Free to build with.</strong><p>Personal or commercial. Modify it, share it, and keep the MIT notice.</p><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/LICENSE">Read the license <span aria-hidden="true">↗</span></a></div></div></div>
     <ol class="install-steps">
-      <li><span class="step-number">1</span><div><h3>Download the release</h3><p>The ZIP contains the complete <code>apple-app-intents</code> folder, with its references, Swift example, helper, and license.</p><a class="button" href="https://github.com/Sdefendre/apple-app-intents-skill/releases/download/v0.1.0/apple-app-intents-v0.1.0.zip">Download v0.1.0 <span aria-hidden="true">↓</span></a><a class="release-link" href="https://github.com/Sdefendre/apple-app-intents-skill/releases/tag/v0.1.0">Release notes &amp; checksum</a></div></li>
-      <li><span class="step-number">2</span><div><h3>Copy the whole folder</h3><p>Choose your agent’s personal skills directory below. Keep the bundled files together, and save any customized copy before replacing it.</p><dl class="install-paths">
+      <li><span class="step-number">1</span><div><h3>Download and unzip</h3><p>The release contains the complete <code>apple-app-intents</code> folder: instructions, references, Swift example, helper, and license.</p><a class="button" href="https://github.com/Sdefendre/apple-app-intents-skill/releases/download/v0.1.0/apple-app-intents-v0.1.0.zip">Download v0.1.0 <span aria-hidden="true">↓</span></a><a class="release-link" href="https://github.com/Sdefendre/apple-app-intents-skill/releases/tag/v0.1.0">Release notes &amp; checksum <span aria-hidden="true">↗</span></a></div></li>
+      <li><span class="step-number">2</span><div><h3>Give your agent the folder</h3><p>Copy the whole folder to your agent’s personal skills directory. Keep the files together, and save any customized copy before replacing it.</p><dl class="install-paths">
         <div><dt>Codex</dt><dd><code>~/.agents/skills/apple-app-intents</code><button class="copy" data-copy="~/.agents/skills/apple-app-intents" aria-label="Copy Codex installation path" hidden>Copy</button></dd></div>
         <div><dt>Claude Code</dt><dd><code>~/.claude/skills/apple-app-intents</code><button class="copy" data-copy="~/.claude/skills/apple-app-intents" aria-label="Copy Claude Code installation path" hidden>Copy</button></dd></div>
         <div><dt>OpenClaw</dt><dd><code>~/.openclaw/skills/apple-app-intents</code><button class="copy" data-copy="~/.openclaw/skills/apple-app-intents" aria-label="Copy OpenClaw installation path" hidden>Copy</button></dd></div>
       </dl><p class="copy-status" role="status" aria-live="polite"></p><a class="text-link" href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/docs/INSTALLATION.md">Project installs, other agents &amp; updates <span aria-hidden="true">↗</span></a></div></li>
-      <li><span class="step-number">3</span><div><h3>Start a new agent session</h3><p>Reload its skills or restart, then ask it to use <code>apple-app-intents</code>. Try this:</p><blockquote>“Use apple-app-intents to audit my app’s Siri integration. Map supported actions to schemas or custom intents, preserve existing shortcuts, and tell me which build and device checks are still needed.”</blockquote></div></li>
+      <li><span class="step-number">3</span><div><h3>Start a new session. Start building.</h3><p>Reload your agent’s skills or restart, then ask it to use <code>apple-app-intents</code>. Here’s a place to start:</p><blockquote>Use apple-app-intents to audit my app’s Siri integration. Map supported actions to schemas or custom intents, preserve existing shortcuts, and tell me which build and device checks are still needed.</blockquote></div></li>
     </ol>
   </section>
-  <section class="scope-section wrap" aria-labelledby="scope-title"><div><p class="eyebrow">GROUNDED IN APPLE’S DOCUMENTATION + WWDC26</p><h2 id="scope-title">Clear about what’s supported.</h2></div><div><p>Not every custom intent is discoverable through Siri AI. Availability depends on the schema, SDK, device, enabled services, and language or region.</p><p>The sample passed four Swift service tests and Xcode 27 beta 6 build and metadata checks. Live Siri and system-test execution remain unverified.</p><div class="resource-links"><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/docs/RESEARCH.md">Read the research ↗</a><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/docs/VALIDATION.md">See the validation record ↗</a></div></div></section>
+  <section class="scope-section" aria-labelledby="scope-title"><div class="wrap scope-layout"><div><p class="eyebrow">THE EVIDENCE MATTERS</p><h2 id="scope-title">Built on research.<br>Clear about the limits.</h2></div><div><p>Grounded in Apple’s documentation and WWDC26. Not every custom intent is discoverable through Siri AI; availability depends on the schema, SDK, device, enabled services, and language or region.</p><p>The September 10, 2026 validation record documents four passing Swift service tests and Xcode 27 beta 6 build and metadata checks. Live Siri and system-test execution remain unverified.</p><div class="resource-links"><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/docs/RESEARCH.md">Read the research <span aria-hidden="true">↗</span></a><a href="https://github.com/Sdefendre/apple-app-intents-skill/blob/main/docs/VALIDATION.md">See the validation record <span aria-hidden="true">↗</span></a></div></div></div></section>
 </main>
 <footer class="wrap"><div><a class="footer-name" href="https://github.com/Sdefendre">Made by Steve Defendre <span aria-hidden="true">↗</span></a><p>An independent community project. Not affiliated with or endorsed by Apple or the supported agent vendors.</p></div><a href="https://github.com/Sdefendre/apple-app-intents-skill">Open source on GitHub <span aria-hidden="true">↗</span></a></footer>
 </body>
