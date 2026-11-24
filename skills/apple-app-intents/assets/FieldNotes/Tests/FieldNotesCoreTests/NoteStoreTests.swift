@@ -57,3 +57,36 @@ private func temporaryFile() throws -> URL {
     await #expect(throws: (any Error).self) { try await store.create(name: "No save", content: "") }
     #expect(try await store.all().isEmpty)
 }
+
+@Test func appendAddsALineWithoutChangingIdentityNameOrPin() async throws {
+    let file = try temporaryFile()
+    defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+    let store = NoteStore(file: file)
+    let note = try await store.create(name: "Trail log", content: "", pinned: true)
+    _ = try await store.append(id: note.id, text: "  2 × heron — north pond \n")
+    let appended = try await store.append(id: note.id, text: "1 × kingfisher")
+    #expect(appended.id == note.id)
+    #expect(appended.name == "Trail log")
+    #expect(appended.isPinned)
+    #expect(appended.content == "2 × heron — north pond\n1 × kingfisher")
+    #expect(try await NoteStore(file: file).resolve([note.id]) == [appended])
+}
+
+@Test func invalidAppendDoesNotChangePersistedState() async throws {
+    let file = try temporaryFile()
+    defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+    let store = NoteStore(file: file)
+    let note = try await store.create(name: "Keep", content: "Original")
+    await #expect(throws: NoteError.self) { try await store.append(id: note.id, text: " \n ") }
+    await #expect(throws: NoteError.self) { try await store.append(id: UUID(), text: "Orphan") }
+    #expect(try await NoteStore(file: file).all() == [note])
+}
+
+@Test func observationLinesRejectUntrustedValuesBeforeMutation() throws {
+    #expect(try FieldObservationLine.make(subject: " great blue heron ", count: 2, place: "north pond") == "2 × great blue heron — north pond")
+    #expect(try FieldObservationLine.make(subject: "fallen oak", count: 1, place: "  ") == "1 × fallen oak")
+    #expect(try FieldObservationLine.make(subject: "heron\nDELETE ALL", count: 1, place: "") == "1 × heron DELETE ALL")
+    #expect(throws: NoteError.self) { try FieldObservationLine.make(subject: " ", count: 1, place: "") }
+    #expect(throws: NoteError.self) { try FieldObservationLine.make(subject: "heron", count: 0, place: "") }
+    #expect(throws: NoteError.self) { try FieldObservationLine.make(subject: "heron", count: 10_001, place: "") }
+}

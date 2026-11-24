@@ -1,0 +1,69 @@
+# Opt-in Siri AI Developer Preview build. Requires Xcode 27.3 or later.
+# Generate with: xcodegen generate --spec project-preview.yml
+# The default project.yml stays on the released SDK and excludes all of this.
+name: FieldNotesPreview
+options:
+  bundleIdPrefix: org.example
+  deploymentTarget:
+    iOS: "27.3"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+targets:
+  FieldNotes:
+    type: application
+    platform: iOS
+    sources:
+      - Sources/FieldNotesCore
+      - App
+      - Preview/Sources
+      # One skills bundle per app target, in Copy Bundle Resources. If your Xcode
+      # does not validate this reference, re-add it with File > New > File from
+      # Template > Skills Bundle and move the skill folder into it.
+      - path: Preview/Skills.skillsbundle
+        type: file
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.example.FieldNotes
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) SIRI_AI_PREVIEW"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: FieldNotes
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+  FieldNotesSystemTests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - SystemTests
+    dependencies:
+      - target: FieldNotes
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.example.FieldNotes.SystemTests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGN_STYLE: Automatic
+  FieldNotesSiriEvaluations:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - PreviewEvaluations
+    dependencies:
+      - target: FieldNotes
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.example.FieldNotes.SiriEvaluations
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGN_STYLE: Automatic
+schemes:
+  FieldNotesPreview:
+    build:
+      targets:
+        FieldNotes: all
+    test:
+      targets:
+        - FieldNotesSystemTests
+        - FieldNotesSiriEvaluations

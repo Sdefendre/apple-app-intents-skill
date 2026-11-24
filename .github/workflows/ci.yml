@@ -42,3 +42,51 @@ jobs:
           name: fieldnotes-build-log
           path: ${{ runner.temp }}/fieldnotes-build.log
           if-no-files-found: ignore
+  siri-preview:
+    # The Siri AI Developer Preview slice needs Xcode 27.3+. Parse it everywhere;
+    # build it only when the runner has that SDK, and say so loudly otherwise.
+    runs-on: xcode-27
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: skills/apple-app-intents/assets/FieldNotes
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse preview sources with SIRI_AI_PREVIEW
+        run: |
+          for file in App/*.swift Preview/Sources/*.swift PreviewEvaluations/*.swift; do
+            xcrun swiftc -parse -D SIRI_AI_PREVIEW "$file"
+          done
+      - name: Find Xcode 27.3 or later
+        id: xcode
+        run: |
+          found=""
+          for app in /Applications/Xcode*.app; do
+            version=$(defaults read "$app/Contents/Info" CFBundleShortVersionString 2>/dev/null || true)
+            echo "$app: ${version:-unknown}"
+            if [ -n "$version" ] && [ "$(printf '%s\n27.3\n' "$version" | sort -V | head -1)" = "27.3" ]; then found="$app"; fi
+          done
+          if [ -z "$found" ]; then
+            echo "::warning title=Siri AI preview slice not compiled::No Xcode 27.3+ on this runner. Preview sources were parsed only."
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          else
+            sudo xcode-select -s "$found"
+            xcodebuild -version
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Build preview app and evaluation target
+        if: steps.xcode.outputs.available == 'true'
+        run: |
+          set -o pipefail
+          brew install xcodegen
+          xcodegen generate --spec project-preview.yml
+          xcodebuild -project FieldNotesPreview.xcodeproj -scheme FieldNotesPreview \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/FieldNotesPreviewDerivedData" \
+            CODE_SIGNING_ALLOWED=NO build-for-testing 2>&1 | tee "$RUNNER_TEMP/fieldnotes-preview-build.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fieldnotes-preview-build-log
+          path: ${{ runner.temp }}/fieldnotes-preview-build.log
+          if-no-files-found: ignore

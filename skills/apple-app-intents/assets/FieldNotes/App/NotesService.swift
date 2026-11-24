@@ -30,6 +30,13 @@ actor NotesService {
         return note
     }
 
+    func append(id: UUID, text: String) async throws -> Note {
+        let note = try await store.append(id: id, text: text)
+        await repairAfterMutation()
+        await NoteChanges.shared.committed()
+        return note
+    }
+
     func delete(id: UUID) async throws {
         try await store.delete(id: id)
         // For this tiny local store, rebuilding reconciles deletions without assuming

@@ -1,0 +1,20 @@
+name: Check Apple documentation links
+# Apple moves and renames documentation, especially during betas. This weekly
+# run fails on broken or redirected developer.apple.com links and lists beta
+# symbols for review. It stays out of push CI so network flakiness cannot block PRs.
+on:
+  schedule:
+    - cron: '17 9 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/check_apple_links.py

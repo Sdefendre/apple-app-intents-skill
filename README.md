@@ -50,7 +50,15 @@ Explicit invocation: `$apple-app-intents` in Codex or `/apple-app-intents` in Cl
 - Use modern APIs for larger collections, cross-device identity, progress, and cancellation when needed.
 - Validate business logic, metadata extraction, system execution, and real device flows separately.
 
-The entrypoint loads only the essentials. Eight focused references provide deeper guidance when the task needs it. The included [FieldNotes sample](skills/apple-app-intents/assets/FieldNotes/README.md) demonstrates the OS 27 Notes schemas with real local persistence and explicit limitations.
+The entrypoint loads only the essentials. Eleven focused references provide deeper guidance when the task needs it, including a short review checklist of common mistakes. The included [FieldNotes sample](skills/apple-app-intents/assets/FieldNotes/README.md) demonstrates the OS 27 Notes schemas with real local persistence and explicit limitations. An opt-in preview slice shows one Siri AI tool, a generable entity, a card snippet, one app skill, and scripted Siri evaluations. That slice stays out of the default build because the preview APIs can change.
+
+## Why this shape
+
+The skill stays short on purpose. `SKILL.md` routes to one reference at a time, so an agent does not load every surface for every task. FieldNotes is a buildable example with service tests and a CI app build, and the references separate four kinds of evidence: service behavior, metadata extraction, system execution, and a device run. A passing unit test is not reported as Siri verification.
+
+GitHub topics already include `app-intents`, `siri`, and `agent-skills`. The downloadable ZIP on the website stays at the published v0.1.0 release until the next tag is cut. The skill's own version field is 0.2.0.
+
+A six-task comparison recorded on 2026-11-24 is in [evals/RESULTS.md](evals/RESULTS.md). It is one agent and one run per cell, on Command Line Tools, not a benchmark.
 
 ## Compatibility and scope
 
