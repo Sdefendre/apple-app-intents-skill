@@ -107,5 +107,13 @@ class ToolsTests(unittest.TestCase):
             self.assertEqual(report["files_with_text_matches"]["system_tests"], 0)
 
 
+    def test_cli_documents_supported_agents(self):
+        result = subprocess.run([sys.executable, str(ROOT / "scripts/install.py"), "--help"],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for agent in ("codex", "claude", "cursor", "openclaw"):
+            self.assertIn(agent, result.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()

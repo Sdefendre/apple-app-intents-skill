@@ -1,0 +1,45 @@
+name: Bug report
+description: A problem with the skill, installer, example, or docs
+body:
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include redacted agent output when it helps.
+    validations:
+      required: true
+  - type: input
+    id: skill-revision
+    attributes:
+      label: Skill revision
+      description: Release tag, commit SHA, or install date.
+      placeholder: v0.1.0
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and version
+      description: For example, Claude Code, Cursor, Codex, or OpenClaw.
+    validations:
+      required: true
+  - type: input
+    id: sdk
+    attributes:
+      label: Xcode, SDK, and OS
+      description: Required when the issue involves a build, simulator, or device check.
+    validations:
+      required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Do not include secrets, signing assets, or private app data.
+    validations:
+      required: true
