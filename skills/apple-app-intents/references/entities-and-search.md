@@ -30,8 +30,8 @@ Control what the system sees, indexes, and eagerly fetches on an entity:
 
 - `@Property`: exposes a stored field to Shortcuts, Siri, and Spotlight (with `indexingKey:` when mapping to a Core Spotlight attribute key).
 - `@ComputedProperty`: exposes a cheap derived value via a getter (and supports `indexingKey:` for Spotlight mapping).
-- `@DeferredProperty`: exposes an expensive asynchronous getter fetched only when the system explicitly requests it; deferred properties are not eagerly serialized or automatically indexed in Spotlight.
-- Plain stored properties without an App Intents wrapper stay internal to your app code and are not exposed to the system.
+- `@DeferredProperty`: exposes an expensive asynchronous getter fetched only when the system explicitly requests it; by default deferred properties are not eagerly serialized or indexed when donating an `IndexedEntity` to Spotlight (newer Siri AI Developer Preview overloads also add `indexingKey:`, `authenticationPolicy:`, and `visibility:` options—check your target SDK and [siri-tools-and-evaluations.md](siri-tools-and-evaluations.md)).
+- Plain stored properties without an App Intents wrapper stay internal to your app code and are not exposed to the system. On preview SDKs that support `IntentVisibility`, `@Property`, `@ComputedProperty`, and `@DeferredProperty` also accept `visibility: .internal` (visible to your app and its extensions, hidden from Siri and Shortcuts) and per-property `authenticationPolicy:` for Siri responses.
 
 ## Index lifecycle
 
