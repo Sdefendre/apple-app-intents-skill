@@ -39,12 +39,13 @@ def install(source: Path, skills_dir: Path) -> Path:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--agent", choices=["codex", "claude", "openclaw"])
+    group.add_argument("--agent", choices=["codex", "claude", "cursor", "openclaw"])
     group.add_argument("--skills-dir", type=Path, help="Custom agent's skills parent directory")
     args = parser.parse_args()
     locations = {
         "codex": Path.home() / ".agents" / "skills",
         "claude": Path.home() / ".claude" / "skills",
+        "cursor": Path.home() / ".cursor" / "skills",
         "openclaw": Path.home() / ".openclaw" / "skills",
     }
     try:

@@ -8,10 +8,11 @@ The distributable unit is the **entire** `skills/apple-app-intents` directory. I
 |---|---|---|
 | Codex | `~/.agents/skills/apple-app-intents` | `.agents/skills/apple-app-intents` |
 | Claude Code | `~/.claude/skills/apple-app-intents` | `.claude/skills/apple-app-intents` |
+| Cursor | `~/.cursor/skills/apple-app-intents` | `.cursor/skills/apple-app-intents` |
 | OpenClaw | `~/.openclaw/skills/apple-app-intents` | `<workspace>/skills/apple-app-intents` |
 | Other Markdown/Agent Skills agent | Its configured skills directory | Load `SKILL.md` and preserve relative resource paths |
 
-Paths are based on [OpenAI documentation](https://learn.chatgpt.com/docs/build-skills), [Claude Code documentation](https://code.claude.com/docs/en/skills), and [OpenClaw documentation](https://docs.openclaw.ai/tools/skills), checked September 10, 2026. Older Clawdbot installations may use different paths; use their configured workspace directory rather than assuming a current OpenClaw location. Agent compatibility describes the portable format and documented loading paths; it is not a claim that every agent version has been exercised.
+Paths are based on [OpenAI documentation](https://learn.chatgpt.com/docs/build-skills), [Claude Code documentation](https://code.claude.com/docs/en/skills), [Cursor documentation](https://cursor.com/docs/skills), and [OpenClaw documentation](https://docs.openclaw.ai/tools/skills), checked November 23, 2026. Cursor also loads the Agent Skills locations `~/.agents/skills` and `.agents/skills`. Older Clawdbot installations may use different paths; use their configured workspace directory rather than assuming a current OpenClaw location. Agent compatibility describes the portable format and documented loading paths; it is not a claim that every agent version has been exercised.
 
 ## Manual installation
 

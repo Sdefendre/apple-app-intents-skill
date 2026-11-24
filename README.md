@@ -1,8 +1,10 @@
 # Apple App Intents Skill
 
+[![Validate skill and example](https://github.com/Sdefendre/apple-app-intents-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/Sdefendre/apple-app-intents-skill/actions/workflows/ci.yml)
+
 **Teach your coding agent to build iOS apps that work with Siri, Shortcuts, and Apple Intelligence.**
 
-A free, open-source [Agent Skill](https://agentskills.io/specification) for Claude Code, Codex, OpenClaw, and other agents that can read Markdown instructions. Includes current App Schema guidance, a Swift example, testing workflows, and research grounded in Apple's developer documentation and WWDC transcripts.
+A free, open-source [Agent Skill](https://agentskills.io/specification) for Claude Code, Cursor, Codex, OpenClaw, and other agents that can read Markdown instructions. Includes current App Schema guidance, a Swift example, testing workflows, and research grounded in Apple's developer documentation and WWDC transcripts.
 
 **MIT licensed.** Free to use, modify, redistribute, and use in commercial projects. No subscription, API key, hosted service, telemetry, or paid dependency is required to use the skill. Your chosen agent and Apple's development/distribution services have their own requirements.
 
@@ -22,6 +24,7 @@ Choose **one** destination, or repeat for agents you use:
 
 ```sh
 python3 scripts/install.py --agent claude
+python3 scripts/install.py --agent cursor
 python3 scripts/install.py --agent openclaw
 python3 scripts/install.py --skills-dir /path/to/your/project/.agents/skills
 ```
