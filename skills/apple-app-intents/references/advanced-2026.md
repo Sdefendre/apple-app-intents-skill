@@ -18,7 +18,7 @@ The same session uses the name `ValueRepresentation`; the inspected SDK exposes 
 
 ## Long operations and cancellation
 
-[LongRunningIntent](https://developer.apple.com/documentation/appintents/longrunningintent) is available in OS 27. It extends background execution through its supported task methods and requires regular progress reporting. Apple documents a 30-second ordinary background budget on the listed non-macOS platforms; macOS differs. Do not promote that number into a universal foreground limit or a guaranteed extended duration.
+[LongRunningIntent](https://developer.apple.com/documentation/appintents/longrunningintent) is available in OS 27. It extends background execution through its supported task methods and builds on [ProgressReportingIntent](https://developer.apple.com/documentation/appintents/progressreportingintent) (see [intent-types-and-surfaces.md](intent-types-and-surfaces.md)) to require regular progress reporting. Apple documents a 30-second ordinary background budget on the listed non-macOS platforms; macOS differs. Do not promote that number into a universal foreground limit or a guaranteed extended duration.
 
 [CancellableIntent](https://developer.apple.com/documentation/appintents/cancellableintent), documented from OS 26.4, provides an intent-aware cancellation handler. Stop work promptly, release resources, and preserve recoverable state. A timeout during a remote mutation is not proof that the remote transaction was rolled back. Report and reconcile ambiguous outcomes using the application's service contract.
 

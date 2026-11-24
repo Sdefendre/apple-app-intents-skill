@@ -15,6 +15,12 @@
 | Mutation succeeds but user sees failure | Save succeeded before index/donation/network follow-up failed | Separate committed result from secondary repair work |
 | Intent works only after opening app | UI-only dependency registration, in-memory state | Initialize real services for intent execution |
 | Duplicate records after retries | Ambiguous transaction result, absent service idempotency | Clarify committed state; reuse service-level deduplication where available |
+| Stale widget after intent write | App Group container mismatch, missing timeline reload | Write to the shared App Group store and call `WidgetCenter.shared.reloadAllTimelines()` (or `reloadTimelines(ofKind:)`) |
+| Widget or control config intent cluttering Shortcuts | Default `isDiscoverable = true` on configuration intent | Set `isDiscoverable = false` when the intent is configuration-only |
+| Interactive snippet does not refresh | Control not wired via `Button(intent:)` / `Toggle(isOn:intent:)`, or `SnippetIntent` reading stale state | Trigger mutations from intent-backed controls and read current persisted state in `SnippetIntent.perform()` |
+| Focus filter not applied when app is closed | Filter logic lives only in the main app target or unshared storage | Add a Focus filter extension with shared App Group storage if widgets, badges, or notifications must update without the app running |
+| Custom tool not selected by Siri AI | Preview eligibility, vague title/descriptions, missing entity query, or invalid `Skills.skillsbundle` | Check preview build/device eligibility, sharpen descriptions, verify Advisor/Copy Bundle Resources; see [siri-tools-and-evaluations.md](siri-tools-and-evaluations.md) |
+| Build error combining `.tool` with a schema | Primary Siri domain schema already supported natively by Siri | Remove `.tool` from primary Siri schemas; combine `.tool` only with Shortcuts-only schemas |
 | Unit test passes, system flow fails | Extraction, serialization, process boundaries, runtime access | Add out-of-process AppIntentsTesting and manual surface checks |
 
 Reproduce with one precise action and known record before widening scope. Preserve logs with private content redacted. Read the relevant guide in this skill and the current Apple symbol reference; do not “fix” uncertainty by disabling authentication, returning fabricated entities, or swallowing all errors.

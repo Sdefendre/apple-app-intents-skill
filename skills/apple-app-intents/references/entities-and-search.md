@@ -5,21 +5,33 @@ Choose a query according to what the caller supplies and what the app can retrie
 | Need | Candidate | Behavioral check |
 |---|---|---|
 | Resolve saved IDs | `EntityQuery.entities(for:)` | Return current authorized records; omit nonexistent records |
+| Small complete set in memory | `EnumerableEntityQuery` | Bounded set only; lets Shortcuts auto-generate a Find action without manual predicates ([WWDC25 244](https://developer.apple.com/videos/play/wwdc2025/244/)) |
 | User searches by text | `EntityStringQuery` | Match useful names; preserve ambiguity rather than picking arbitrarily |
 | Suggested choices | `suggestedEntities()` | Small relevant authorized set; no unbounded remote scan |
 | Structured filtering/sorting | `EntityPropertyQuery` | Respect predicates, comparators, sorting, and limits |
 | Incoming typed search/value | `IntentValueQuery` | Interpret supported input and resolve appropriate existing values |
 | Semantic discovery | `IndexedEntity` + Spotlight | Saved content actually enters and leaves the index |
 
-See [EntityQuery](https://developer.apple.com/documentation/appintents/entityquery), [EntityStringQuery](https://developer.apple.com/documentation/appintents/entitystringquery), [EntityPropertyQuery](https://developer.apple.com/documentation/appintents/entitypropertyquery), and [IntentValueQuery](https://developer.apple.com/documentation/appintents/intentvaluequery). Do not describe a substring query as semantic search.
+See [EntityQuery](https://developer.apple.com/documentation/appintents/entityquery), [EnumerableEntityQuery](https://developer.apple.com/documentation/appintents/enumerableentityquery), [EntityStringQuery](https://developer.apple.com/documentation/appintents/entitystringquery), [EntityPropertyQuery](https://developer.apple.com/documentation/appintents/entitypropertyquery), and [IntentValueQuery](https://developer.apple.com/documentation/appintents/intentvaluequery). Do not describe a substring query as semantic search.
 
 ## Entity design
 
 Represent the app's useful nouns with [AppEntity](https://developer.apple.com/documentation/appintents/appentity). Keep IDs stable; expose meaningful typed properties and relationships, not opaque JSON or only an ID/title pair when the workflow needs dates, locations, or owners. Use `AppEnum` for genuinely finite choices; give cases durable raw values and localized display names.
 
+When a document or file on disk is itself the canonical record rather than a database row, use [FileEntity](https://developer.apple.com/documentation/appintents/fileentity) with `FileEntityIdentifier` and explicit supported content types ([WWDC24 10134](https://developer.apple.com/videos/play/wwdc2024/10134/)).
+
 Distinguish persistent entities from temporary results. `TransientAppEntity` can represent ephemeral values but is not a replacement for stable identifiers in system annotations or saved references. A display name is not a primary key. Two records named “Planning” should remain distinguishable through subtitles such as folder, date, or owner.
 
 Queries should batch database lookups, return only authorized records, and hydrate current properties. Define deterministic ordering where the UX depends on it. Handle cancellation and offline errors honestly; do not convert every failure into an empty list that pretends the account has no data.
+
+## Entity properties
+
+Control what the system sees, indexes, and eagerly fetches on an entity:
+
+- `@Property`: exposes a stored field to Shortcuts, Siri, and Spotlight (with `indexingKey:` when mapping to a Core Spotlight attribute key).
+- `@ComputedProperty`: exposes a cheap derived value via a getter (and supports `indexingKey:` for Spotlight mapping).
+- `@DeferredProperty`: exposes an expensive asynchronous getter fetched only when the system explicitly requests it; by default deferred properties are not eagerly serialized or indexed when donating an `IndexedEntity` to Spotlight (newer Siri AI Developer Preview overloads also add `indexingKey:`, `authenticationPolicy:`, and `visibility:` options—check your target SDK and [siri-tools-and-evaluations.md](siri-tools-and-evaluations.md)).
+- Plain stored properties without an App Intents wrapper stay internal to your app code and are not exposed to the system. On preview SDKs that support `IntentVisibility`, `@Property`, `@ComputedProperty`, and `@DeferredProperty` also accept `visibility: .internal` (visible to your app and its extensions, hidden from Siri and Shortcuts) and per-property `authenticationPolicy:` for Siri responses.
 
 ## Index lifecycle
 

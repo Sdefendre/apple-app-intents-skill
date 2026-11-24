@@ -13,6 +13,8 @@ For OS 27, read [App Intents Testing](https://developer.apple.com/documentation/
 
 Use `IntentDefinitions` to locate exact extracted intent/entity names, run actions, and inspect returned values. Cover query lookup, create-to-update chaining, Spotlight results, and view annotations using current framework APIs. Prefer an actual returned entity over a string parameter when testing identity through a chain. Test-only fixture/reset intents must be hidden and compiled out of release builds; never expose a database-reset intent in a shipping app.
 
+For apps adopting the Siri AI Developer Preview (custom `@AppIntent(.tool)` tools or `Skills.skillsbundle`), see [siri-tools-and-evaluations.md](siri-tools-and-evaluations.md) for **Siri Integration Advisor** and the **`SiriEvaluations`** framework. Those tools require preview-eligible builds and physical devices (development-signed or internal TestFlight only, never external TestFlight or App Store) and complement—rather than substitute for—the four gates above.
+
 ## Meaningful service tests
 
 Exercise the shared service with a temporary store and inspect observable results. Reopen the store to verify durability. Check stale IDs, validation failures without mutation, repeated updates, and partial failures. For a new test, introduce a relevant defect briefly in an isolated copy to prove the test detects it. A test that merely asserts a mock indexing call happened cannot prove a searchable entity exists.

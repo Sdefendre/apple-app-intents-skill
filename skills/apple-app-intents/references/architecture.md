@@ -21,11 +21,13 @@ An actor serializes access only inside its own process. If an app and extension 
 
 Await persistence before reporting creation. Commit state only after a durable write succeeds. If indexing fails after a successful save, preserve the committed result and queue or expose index repair; an apparent creation failure can cause the user to retry and create duplicates. For remote operations, reuse the application's transaction/idempotency mechanism where the service supports it. Never invent a framework-wide exactly-once guarantee.
 
+With SwiftData or other local databases, reuse the app's configured store instead of creating a fresh `ModelContainer` inside `perform()`, and do not attempt to read SwiftUI `@Query` properties inside an intent. When an intent runs inside a widget or other extension, open only storage that target is entitled to access (typically an App Group container), and reload affected widget timelines with `WidgetCenter.shared.reloadAllTimelines()` (or `reloadTimelines(ofKind:)`) after committed writes.
+
 ## Dependency injection and concurrency
 
 For optional update-schema parameters, distinguish omission from explicit clearing. The macro-generated parameter's `$property.valueState` represents `.unset` (leave unchanged), `.set(value)` (replace), and `.set(nil)` (clear). A plain `property == nil` check loses that intent. Implement clearing in the service or reject it before mutation when the app cannot represent it. Apple's [WWDC26 code-along](https://developer.apple.com/videos/play/wwdc2026/344/) demonstrates this distinction for recurrence updates.
 
-Register dependencies before the system can resolve an intent. Apple's [AppDependencyManager](https://developer.apple.com/documentation/appintents/appdependencymanager) supports dependency registration; match its lifecycle to the app rather than assuming it magically transfers instances between processes. Small examples may use an actor-backed shared service if the execution scope is explicit.
+Register dependencies early in the exact process that will run the intent. Use the `@Dependency` property wrapper with [AppDependencyManager](https://developer.apple.com/documentation/appintents/appdependencymanager) (for example, registering during app or extension startup before intents resolve); do not assume registrations from the main app process transfer into a widget or other extension. Small examples may use an actor-backed shared service if the execution scope is explicit.
 
 Use `@MainActor` for UI mutations and navigation. Keep network and expensive parsing work off the main actor. Follow Swift concurrency diagnostics instead of adding blanket `@unchecked Sendable`, `nonisolated(unsafe)`, or unnecessary detached tasks. A fire-and-forget `Task` inside `perform()` can end after the intent has already reported success.
 
