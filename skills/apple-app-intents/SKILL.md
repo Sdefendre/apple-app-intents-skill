@@ -1,10 +1,10 @@
 ---
 name: apple-app-intents
-description: Build and review iOS apps with App Intents, App Entities, App Shortcuts, and App Schemas for Siri and Apple Intelligence. Use when adding Siri actions, entity search, onscreen awareness, or migrating existing Shortcuts integrations. Includes SDK-aware implementation and validation; does not implement a replacement voice assistant.
+description: Build and review iOS apps with App Intents, App Entities, App Shortcuts, App Schemas, widgets, Control Center controls, Focus filters, interactive snippets, and Siri AI custom tools or app skills. Use when adding Siri actions, entity search, onscreen awareness, widget/control configuration, or migrating existing Shortcuts integrations. Includes SDK-aware implementation and validation; does not implement a replacement voice assistant.
 license: MIT
 metadata:
   author: Steve Defendre
-  version: "0.1.0"
+  version: "0.2.0"
   environment: Any Markdown-capable agent. iOS builds need macOS and full Xcode; Siri tests need a supported device and enabled services. Optional helper needs Python 3.10+.
 ---
 
@@ -23,6 +23,23 @@ Read [platform-and-schemas.md](references/platform-and-schemas.md) before choosi
 - Features requiring newer SDKs, OS releases, enabled Apple Intelligence, languages, or regions.
 
 The research baseline is **2026-09-10 / WWDC26**. Recheck Apple's current symbol documentation and release notes when choosing APIs. Do not infer runtime availability from a keynote, macro conformance, or an older tutorial. If browsing is unavailable, label the affected claims unverified and use the installed SDK for compilation facts.
+
+## Route by surface
+
+Load only the references needed for the surfaces you are building or reviewing:
+
+| Surface or concern | Reference |
+|---|---|
+| Schema domains, SDK/OS matrix, migration | [platform-and-schemas.md](references/platform-and-schemas.md) |
+| Widgets, controls, Focus filters, snippets, URL/in-app search intents | [intent-types-and-surfaces.md](references/intent-types-and-surfaces.md) |
+| Custom Siri tools (`@AppIntent(.tool)`), app skills, Advisor, `SiriEvaluations` (Developer Preview) | [siri-tools-and-evaluations.md](references/siri-tools-and-evaluations.md) |
+| Entities, queries, file entities, property wrappers, Spotlight indexing | [entities-and-search.md](references/entities-and-search.md) |
+| App Shortcuts, parameter prompts/confirmations, dialog, discovery UI | [shortcuts-and-dialog.md](references/shortcuts-and-dialog.md) |
+| Onscreen awareness, transfer representations, donations | [context-and-transfer.md](references/context-and-transfer.md) |
+| Service boundaries, `@Dependency`, SwiftData/extensions, execution modes, navigation | [architecture.md](references/architecture.md) |
+| Scale, cross-device identity, relevance, long-running/cancellable work | [advanced-2026.md](references/advanced-2026.md) |
+| Four verification gates and release evidence | [testing-and-release.md](references/testing-and-release.md) |
+| Symptom-to-layer diagnosis | [troubleshooting.md](references/troubleshooting.md) |
 
 ## Design the integration
 

@@ -82,6 +82,8 @@ Cassinelli's WWDC26 posts are useful indexes and readable annotations of Apple d
 
 The catalog and OS 27 symbols are likely to evolve after this dated baseline. Generated Xcode templates remain the best check for exact required fields, optionality, result types, and diagnostics. Device testing remains necessary for natural-language selection, clarification, confirmation, voice-only responses, and multi-turn behavior.
 
+OS 27.3 Siri AI Developer Preview guidance (custom `@AppIntent(.tool)` tools, `Skills.skillsbundle` app skills, Siri Integration Advisor, and `SiriEvaluations`) is documented separately in [siri-tools-and-evaluations.md](../skills/apple-app-intents/references/siri-tools-and-evaluations.md) and must be re-verified against Apple's current preview documentation and the installed SDK.
+
 No current technical transcript was available for Cassinelli's September 9, 2026 TWiT appearance, so this report draws no implementation claims from it [^C8]. His announced NSSpain talk, “Preparing Your App for Siri AI: App Intents Deep Dive,” was scheduled after this baseline and had not yet been delivered [^C8]. No public Cassinelli-authored WWDC26 App Schemas sample repository or dedicated AppIntentsTesting technical guide was located. Those gaps should not be filled by inference.
 
 ## Source notes

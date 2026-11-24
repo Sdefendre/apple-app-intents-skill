@@ -9,6 +9,7 @@ Baseline checked 2026-09-10. Re-read the linked domain and symbol pages for the 
 | App Intents foundation | `AppIntent`, typed parameters/results, entity queries | Actions that system surfaces can use; availability varies by surface |
 | App Shortcuts | `AppShortcutsProvider`, phrases containing application name | Curated entry points without users first composing a shortcut |
 | Siri AI schemas | Matching `@AppIntent(schema:)`, `@AppEntity(schema:)`, `@AppEnum(schema:)` contracts | Structured capabilities the supported Siri domain can interpret |
+| Custom Siri tools & app skills (27.3 Developer Preview) | `@AppIntent(.tool)`, optional `Skills.skillsbundle` ([siri-tools-and-evaluations.md](siri-tools-and-evaluations.md)) | Custom actions for Siri AI outside primary schemas; preview-only (dev-signed / internal TestFlight). Adding `.tool` to a primary Siri schema is a build error |
 | Content/context | Spotlight, view/entity annotations, transfer representations | Discoverable records, contextual references, cross-app values |
 | Runtime delivery | Supported OS, hardware, language/region, Apple Intelligence enabled | Prerequisites for testing the intended Siri experience |
 
