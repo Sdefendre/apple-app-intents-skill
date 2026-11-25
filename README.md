@@ -8,9 +8,11 @@ A free, open-source [Agent Skill](https://agentskills.io/specification) for Clau
 
 **MIT licensed.** Free to use, modify, redistribute, and use in commercial projects. No subscription, API key, hosted service, telemetry, or paid dependency is required to use the skill. Your chosen agent and Apple's development/distribution services have their own requirements.
 
-**[Visit the website and download the skill](https://sdefendre.github.io/apple-app-intents-skill/)**
+Built by Steve Defendre at [Defendre Solutions](https://defendresolutions.com).
 
 ## Install
+
+You can also get the skill from [SkillMD](https://skillmd.com/skills/sdefendre/apple-app-intents-skill), the [latest GitHub release](https://github.com/Sdefendre/apple-app-intents-skill/releases/latest), or the [project website](https://sdefendre.github.io/apple-app-intents-skill/).
 
 Requires Git and Python 3.10+ for the optional installer:
 
@@ -29,7 +31,7 @@ python3 scripts/install.py --agent openclaw
 python3 scripts/install.py --skills-dir /path/to/your/project/.agents/skills
 ```
 
-The installer copies the complete skill and refuses to overwrite an existing installation. It never downloads or runs remote code. See [installation and updates](docs/INSTALLATION.md) for manual copies, project scope, version pinning, and other agents.
+The installer copies the complete `skills/apple-app-intents` directory and refuses to overwrite an existing installation. It never downloads or runs remote code. See [installation and updates](docs/INSTALLATION.md) for manual copies, project scope, version pinning, and other agents.
 
 Reload your agent's skills or start a new session. Ask:
 
