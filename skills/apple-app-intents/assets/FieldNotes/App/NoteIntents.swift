@@ -54,12 +54,18 @@ struct UpdateNoteIntent {
 }
 
 @available(iOS 27.0, macOS 27.0, *)
+#if SIRI_AI_PREVIEW
+// Siri AI Developer Preview: adopting any tool makes App Shortcuts unavailable to
+// Siri, so the shortcut's Siri entry point must also exist as a tool. See Preview/.
+@AppIntent(.tool)
+#endif
 struct OpenNoteIntent: OpenIntent {
     static let title: LocalizedStringResource = "Open Note"
+    static let description = IntentDescription("Opens one existing FieldNotes note in the app.")
     static let supportedModes: IntentModes = .foreground
     static let allowedExecutionTargets: IntentExecutionTargets = .main
     static let authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
-    @Parameter(title: "Note") var target: NoteEntity
+    @Parameter(title: "Note", description: "The existing note to show.") var target: NoteEntity
     static var parameterSummary: some ParameterSummary { Summary("Open \(\.$target)") }
 
     @MainActor

@@ -5,7 +5,7 @@ Choose a query according to what the caller supplies and what the app can retrie
 | Need | Candidate | Behavioral check |
 |---|---|---|
 | Resolve saved IDs | `EntityQuery.entities(for:)` | Return current authorized records; omit nonexistent records |
-| Small complete set in memory | `EnumerableEntityQuery` | Bounded set only; lets Shortcuts auto-generate a Find action without manual predicates ([WWDC25 244](https://developer.apple.com/videos/play/wwdc2025/244/)) |
+| Small complete set in memory | `EnumerableEntityQuery` | Bounded set only; lets Shortcuts auto-generate a Find action without manual predicates ([WWDC25 244](https://developer.apple.com/videos/play/wwdc2025/244/)); in the Siri AI preview, Siri can also find entities through it when they are not in Spotlight ([Apple](https://developer.apple.com/documentation/appintents/bringing-custom-actions-and-content-to-siri)) |
 | User searches by text | `EntityStringQuery` | Match useful names; preserve ambiguity rather than picking arbitrarily |
 | Suggested choices | `suggestedEntities()` | Small relevant authorized set; no unbounded remote scan |
 | Structured filtering/sorting | `EntityPropertyQuery` | Respect predicates, comparators, sorting, and limits |

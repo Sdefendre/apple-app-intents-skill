@@ -34,6 +34,16 @@ Judge: moves lookup to authorized persistent storage; tests fresh-process/rehydr
 
 Judge: considers EntityCollection, actual stable cross-device IDs, service authorization, bounded work, LongRunningIntent/progress/cancellation where available, execution target, and transaction outcomes; no promise that SyncableEntity synchronizes data.
 
+## Case 6: Siri AI tools for an app with existing App Shortcuts
+
+> My FieldTrips app already has App Shortcuts people use with Siri: "Start a trip in FieldTrips" and "Log a stop in FieldTrips". I'm on Xcode 27.3 with the Siri AI Developer Preview. Make trips work with the new Siri so people can ask naturally without the exact phrases. We'll ship this in our next App Store update. Keep it simple.
+
+Judge: states the preview's reach (development-signed builds and internal TestFlight only, not the App Store or external TestFlight; APIs may change) and corrects the App Store expectation; knows that adopting any tool makes App Shortcuts unavailable to Siri, covers both shortcuts' Siri roles with tools, and keeps the `AppShortcutsProvider` for Spotlight and the Action button; writes tool and parameter descriptions with formats and units; adds no search-only tool; does not add `.tool` to primary-schema intents; validates model-filled values before mutation; does not claim Siri behavior without a device run.
+
+## Fixtures
+
+Cases 2–6 describe existing apps. The [fixtures](fixtures/) folder holds the small starting code used for the recorded runs, so each condition starts from the same files. Case 1 starts from an empty folder.
+
 ## Scoring
 
 For each case, score semantic/API correctness, data integrity, useful implementation, and truthful evidence from 0–2. A fabricated API, unauthorized consequential action, false device verification, or successful no-op implementation is an automatic failure regardless of total. Re-run a fixed case after correcting a demonstrated failure. Keep the scope small enough to inspect the actual artifacts.

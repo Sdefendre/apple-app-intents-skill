@@ -18,6 +18,7 @@ def module(name, path):
 installer = module("installer", ROOT / "scripts/install.py")
 doctor = module("doctor", ROOT / "skills/apple-app-intents/scripts/doctor.py")
 validator = module("validator", ROOT / "scripts/validate.py")
+links = module("links", ROOT / "scripts/check_apple_links.py")
 
 
 class ToolsTests(unittest.TestCase):
@@ -37,6 +38,58 @@ class ToolsTests(unittest.TestCase):
             (root / "outside.md").write_text("Not installed with the skill")
             (skill / "SKILL.md").write_text(frontmatter + "[Guide](../../outside.md)")
             self.assertTrue(any("repository-external" in error for error in validator.validate(root)))
+
+    def test_validator_enforces_documented_app_skill_bundle_rules(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            skill = root / "skills/apple-app-intents"
+            app_skill = skill / "assets/Demo/Skills.skillsbundle/Skills/log-entry"
+            app_skill.mkdir(parents=True)
+            (root / "LICENSE").write_text("MIT example")
+            (skill / "LICENSE").write_text("MIT example")
+            (skill / "SKILL.md").write_text("---\nname: apple-app-intents\ndescription: Build app intents.\n---\nBody")
+            valid = "---\nname: log-entry\ndescription: Logs an entry.\n---\nUse the log tool."
+            (app_skill / "SKILL.md").write_text(valid)
+            self.assertEqual(validator.validate(root), [])
+            cases = {
+                "name must match": valid.replace("name: log-entry", "name: other-entry"),
+                "only name and description": valid.replace("---\nUse", "license: MIT\n---\nUse"),
+                "1-1024 characters": valid.replace("Logs an entry.", "x" * 1025),
+                "10,000 characters": valid + "x" * 10_001,
+            }
+            for expected, text in cases.items():
+                (app_skill / "SKILL.md").write_text(text)
+                self.assertTrue(any(expected in error for error in validator.validate(root)), expected)
+            (app_skill / "SKILL.md").write_text(valid)
+            (app_skill / "helper.py").write_text("print('no scripts')")
+            self.assertTrue(any("only SKILL.md" in error for error in validator.validate(root)))
+            (app_skill / "helper.py").unlink()
+            app_skill.rename(app_skill.with_name("Log_Entry"))
+            self.assertTrue(any("folder name" in error for error in validator.validate(root)))
+
+    def test_link_checker_extracts_apple_urls_from_markdown(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            page = Path(temporary) / "guide.md"
+            page.write_text("[A](https://developer.apple.com/documentation/appintents/entityquery/entities(for:)), "
+                            "see https://developer.apple.com/videos/play/wwdc2026/344/#t=10.\n"
+                            "[B](https://developer.apple.com/documentation/appintents/toolintent#overview)")
+            self.assertEqual(set(links.collect([page])), {
+                "https://developer.apple.com/documentation/appintents/entityquery/entities(for:)",
+                "https://developer.apple.com/videos/play/wwdc2026/344/",
+                "https://developer.apple.com/documentation/appintents/toolintent",
+            })
+
+    def test_link_checker_flags_redirects_and_missing_pages_and_reports_beta(self):
+        doc = "https://developer.apple.com/documentation/appintents/toolintent"
+        def fake(status, location=None, body=b""):
+            return lambda url, method: (status, location, body) if method == "HEAD" else (200, None, body)
+        self.assertIn("redirects (301)", links.check(doc, fake(301, "/documentation/x"))[0])
+        self.assertEqual(links.check(doc, fake(404))[0], "HTTP 404")
+        beta = b'{"metadata": {"platforms": [{"name": "iOS", "beta": true}]}}'
+        self.assertEqual(links.check(doc, fake(200, body=beta)), (None, True))
+        self.assertEqual(links.check("https://developer.apple.com/videos/play/wwdc2026/344/", fake(200)), (None, False))
+        missing_data = lambda url, method: (200, None, b"") if method == "HEAD" else (404, None, b"")
+        self.assertIn("documentation data unavailable", links.check(doc, missing_data)[0])
 
     def test_generated_build_artifacts_do_not_block_or_enter_install(self):
         with tempfile.TemporaryDirectory() as temporary:

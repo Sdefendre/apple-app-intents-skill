@@ -40,6 +40,7 @@ Load only the references needed for the surfaces you are building or reviewing:
 | Scale, cross-device identity, relevance, long-running/cancellable work | [advanced-2026.md](references/advanced-2026.md) |
 | Four verification gates and release evidence | [testing-and-release.md](references/testing-and-release.md) |
 | Symptom-to-layer diagnosis | [troubleshooting.md](references/troubleshooting.md) |
+| Reviewing generated or existing code before you report it | [anti-patterns.md](references/anti-patterns.md) |
 
 ## Design the integration
 
@@ -64,7 +65,7 @@ Start with one meaningful action and its real data, then extend the map. Use [ar
 5. For discoverable persistent content, maintain a named Spotlight index through create, update, delete, access revocation, and repair. Type conformance alone does not index data.
 6. Add onscreen entities, content transfer, and real UI-interaction donations when they improve the requested workflows. Read [context-and-transfer.md](references/context-and-transfer.md). Match the annotation API to the SDK and view structure.
 
-Use the bundled [FieldNotes example](assets/FieldNotes/README.md) as a pattern source, not a template to impose on unrelated apps. It targets OS 27 and has explicitly documented scope and verification limits. Older deployment targets need their own availability strategy.
+Use the bundled [FieldNotes example](assets/FieldNotes/README.md) as a pattern source, not a template to impose on unrelated apps. It targets OS 27 and has explicitly documented scope and verification limits. Its opt-in Siri AI preview slice shows tools, a generable entity, a card snippet, an app skill, and Siri evaluations; that slice is labeled uncompiled until a 27.3 SDK build succeeds. Older deployment targets need their own availability strategy.
 
 For large collections, cross-device identity, contextual relevance, longer work, or multiple execution processes, read [advanced-2026.md](references/advanced-2026.md) before selecting newer APIs.
 
@@ -83,6 +84,6 @@ For bug reports, use [troubleshooting.md](references/troubleshooting.md) to iden
 
 ## Deliver
 
-Return the implemented capability map, modified files, exact build/test results, and remaining device or service checks. Label capabilities as implemented, compiled, system-tested, or device-verified only when the corresponding evidence exists. Provide concise example utterances and a Shortcuts flow the developer can reproduce.
+Before reporting, check the changed code against [anti-patterns.md](references/anti-patterns.md). Return the implemented capability map, modified files, exact build/test results, and remaining device or service checks. Label capabilities as implemented, compiled, system-tested, or device-verified only when the corresponding evidence exists. Provide concise example utterances and a Shortcuts flow the developer can reproduce.
 
 Do not promise that every app or arbitrary custom action becomes available to unrestricted natural-language Siri requests. Do not add paid services, agent-specific APIs, telemetry, publishing, signing-account changes, or external submissions solely because this skill is active. This skill is free MIT-licensed guidance; it does not waive Apple's platform requirements.

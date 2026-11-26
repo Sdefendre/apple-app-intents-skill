@@ -62,6 +62,18 @@ public actor NoteStore {
         return notes[index]
     }
 
+    /// Adds plain text as a new final line. Name, pin state, and identity are unchanged.
+    public func append(id: UUID, text: String) throws -> Note {
+        let line = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !line.isEmpty else { throw NoteError.unsupportedInput }
+        var notes = try all()
+        guard let index = notes.firstIndex(where: { $0.id == id }) else { throw NoteError.missingNote }
+        notes[index].content = notes[index].content.isEmpty ? line : notes[index].content + "\n" + line
+        notes[index].modified = Date()
+        try save(notes)
+        return notes[index]
+    }
+
     public func delete(id: UUID) throws {
         var notes = try all()
         guard let index = notes.firstIndex(where: { $0.id == id }) else { throw NoteError.missingNote }

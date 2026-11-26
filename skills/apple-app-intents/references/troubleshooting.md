@@ -20,6 +20,7 @@
 | Interactive snippet does not refresh | Control not wired via `Button(intent:)` / `Toggle(isOn:intent:)`, or `SnippetIntent` reading stale state | Trigger mutations from intent-backed controls and read current persisted state in `SnippetIntent.perform()` |
 | Focus filter not applied when app is closed | Filter logic lives only in the main app target or unshared storage | Add a Focus filter extension with shared App Group storage if widgets, badges, or notifications must update without the app running |
 | Custom tool not selected by Siri AI | Preview eligibility, vague title/descriptions, missing entity query, or invalid `Skills.skillsbundle` | Check preview build/device eligibility, sharpen descriptions, verify Advisor/Copy Bundle Resources; see [siri-tools-and-evaluations.md](siri-tools-and-evaluations.md) |
+| App Shortcut phrases stop reaching Siri after adopting tools | Adding any tool intent makes App Shortcuts unavailable to Siri (preview behavior) | Cover each shortcut's Siri role with a tool; keep the App Shortcuts for Spotlight and the Action button ([siri-tools-and-evaluations.md](siri-tools-and-evaluations.md)) |
 | Build error combining `.tool` with a schema | Primary Siri domain schema already supported natively by Siri | Remove `.tool` from primary Siri schemas; combine `.tool` only with Shortcuts-only schemas |
 | Unit test passes, system flow fails | Extraction, serialization, process boundaries, runtime access | Add out-of-process AppIntentsTesting and manual surface checks |
 
